@@ -8,12 +8,10 @@ public class ThreadSleepAction extends CommandActionBase<String> {
 
     public final static long DURATION = 10 * 1000;
 
-    private boolean cancel;
-
     @Override protected void run(CommandCallback<String> callback) {
         new Thread(() -> {
             int seconds = 0;
-            while (!cancel) {
+            while (!isCanceled()) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -22,11 +20,8 @@ public class ThreadSleepAction extends CommandActionBase<String> {
                 }
                 callback.onProgress((int) ((++seconds * 100) / (DURATION / 1000)));
             }
-            callback.onSuccess("FINISHED");
+        callback.onSuccess("FINISHED");
         }).start();
     }
 
-    @Override public void cancel() {
-        cancel = true;
-    }
 }

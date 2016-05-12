@@ -21,8 +21,8 @@ public abstract class CommandActionBase<T> {
     /**
      * For cancellation logic
      */
-    public void cancel() {
-        //do nothing
+    protected void cancel() {
+        // do nothing
     }
 
     final public T getResult() {
