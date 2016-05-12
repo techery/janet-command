@@ -1,5 +1,5 @@
 ## CommandActionService
-ActionService for [Janet](https://github.com/techery/janet) which delegates job execution back to action.  
+ActionService for [Janet](https://github.com/techery/janet) which delegates job execution back to command action.  
 
 ### Getting Started
 ##### 1. Define service and add it to `Janet`
