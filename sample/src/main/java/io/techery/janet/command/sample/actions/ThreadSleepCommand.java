@@ -1,10 +1,10 @@
 package io.techery.janet.command.sample.actions;
 
-import io.techery.janet.CommandActionBase;
+import io.techery.janet.Command;
 import io.techery.janet.command.annotations.CommandAction;
 
 @CommandAction
-public class ThreadSleepAction extends CommandActionBase<String> {
+public class ThreadSleepCommand extends Command<String> {
 
     public final static long DURATION = 10 * 1000;
 

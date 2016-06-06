@@ -4,7 +4,7 @@ package io.techery.janet;
  * Base class which contains the command's methods for running and cancellation.
  * To get command result use method getResult().
  */
-public abstract class CommandActionBase<T> {
+public abstract class Command<T> {
 
     private T result;
     private boolean canceled;

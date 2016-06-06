@@ -6,8 +6,8 @@ import io.techery.janet.command.exception.CommandServiceException;
 /**
  * For invoking custom logic as a command. {@linkplain CommandActionService} performs actions executing with a help of
  * annotation {@linkplain CommandAction @CommandAction}. Also to create command action it's necessary to implement
- * the interface {@linkplain CommandActionBase}. It contains the command's methods for running and cancellation.
- * To get command result use method {@linkplain CommandActionBase#getResult()}
+ * the interface {@linkplain Command}. It contains the command's methods for running and cancellation.
+ * To get command result use method {@linkplain Command#getResult()}
  */
 final public class CommandActionService extends ActionService {
 
@@ -18,12 +18,12 @@ final public class CommandActionService extends ActionService {
     @SuppressWarnings("unchecked")
     @Override protected <A> void sendInternal(ActionHolder<A> holder) throws CommandServiceException {
         callback.onStart(holder);
-        CommandActionBase action = checkAndCast(holder.action());
+        Command action = checkAndCast(holder.action());
         if (action.isCanceled()) {
             return;
         }
         try {
-            action.run(new ActionProgressInvoker((ActionHolder<CommandActionBase>) holder, callback));
+            action.run(new ActionProgressInvoker((ActionHolder<Command>) holder, callback));
         } catch (Throwable t) {
             if (action.isCanceled()) return;
             throw new CommandServiceException(action, t);
@@ -31,25 +31,25 @@ final public class CommandActionService extends ActionService {
     }
 
     @Override protected <A> void cancel(ActionHolder<A> holder) {
-        CommandActionBase action = checkAndCast(holder.action());
+        Command action = checkAndCast(holder.action());
         action.cancel();
         action.setCanceled(true);
     }
 
-    private static CommandActionBase checkAndCast(Object action) {
-        if (!(action instanceof CommandActionBase)) {
+    private static Command checkAndCast(Object action) {
+        if (!(action instanceof Command)) {
             throw new JanetInternalException(String.format("%s must extend %s", action.getClass()
-                    .getCanonicalName(), CommandActionBase.class.getCanonicalName()));
+                    .getCanonicalName(), Command.class.getCanonicalName()));
         }
-        return (CommandActionBase) action;
+        return (Command) action;
     }
 
-    private static class ActionProgressInvoker implements CommandActionBase.CommandCallback {
+    private static class ActionProgressInvoker implements Command.CommandCallback {
 
-        private final ActionHolder<CommandActionBase> holder;
+        private final ActionHolder<Command> holder;
         private final Callback callback;
 
-        private ActionProgressInvoker(ActionHolder<CommandActionBase> holder, Callback callback) {
+        private ActionProgressInvoker(ActionHolder<Command> holder, Callback callback) {
             this.holder = holder;
             this.callback = callback;
         }
