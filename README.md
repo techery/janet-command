@@ -10,7 +10,7 @@ Janet janet = new Janet.Builder().addService(new CommandActionService()).build()
 ##### 2. Define command action class
 ```java
 @CommandAction
-class CopyBitmapToFileCommand extends CommandActionBase<File> {
+class CopyBitmapToFileCommand extends Command<File> {
 
     private final Context context;
     private final String bitmapPath;
@@ -47,7 +47,7 @@ class CopyBitmapToFileCommand extends CommandActionBase<File> {
 ```
 
 * Each action is an individual class that contains runnable logic;
-* It must be annotated with `@CommandAction` and must extend `CommandActionBase`;
+* It must be annotated with `@CommandAction` and must extend `Command`;
 * Real job is defined by overriden `void run()` method which is called upon action sending;
 * `CommandCallback` methods should be called to indicate command result; 
 * Cleanup on cancelation is available via overriden `void cancel()`.
