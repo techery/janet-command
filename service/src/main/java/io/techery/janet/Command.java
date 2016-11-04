@@ -29,7 +29,7 @@ public abstract class Command<T> {
         return result;
     }
 
-    final void setResult(T result) {
+    public final void setResult(T result) {
         this.result = result;
     }
 
