@@ -16,7 +16,7 @@ public abstract class Contract {
     }
 
     public static <K extends Command> FilterContract<K> of(Func1<Command, Boolean> predicate) {
-        return new FilterContract<>(predicate);
+        return new FilterContract<K>(predicate);
     }
 
     public static <K extends Command> FilterContract<K> of(Class<K> clazz) {

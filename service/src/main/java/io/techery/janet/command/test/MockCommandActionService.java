@@ -58,7 +58,7 @@ public class MockCommandActionService extends ActionServiceWrapper {
     }
 
     public final static class Builder {
-        private final List<Contract> contracts = new CopyOnWriteArrayList<>();
+        private final List<Contract> contracts = new CopyOnWriteArrayList<Contract>();
         private ActionService actionService;
 
         public Builder addContract(Contract contract) {
