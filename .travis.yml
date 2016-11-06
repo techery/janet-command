@@ -1,0 +1,18 @@
+language: java
+jdk: oraclejdk8
+
+### Misc. configurations
+
+sudo: false
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
+### The Job
+
+script:
+  - ./gradlew --info clean build -PdisablePreDex
